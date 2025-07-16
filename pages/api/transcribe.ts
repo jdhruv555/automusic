@@ -44,7 +44,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Handle both single file and array of files
-      const file = Array.isArray(files.file) ? files.file[0] : files.file as File;
+      const file = files.file
+        ? (Array.isArray(files.file) ? files.file[0] : files.file)
+        : undefined;
       
       if (!file) {
         return res.status(400).json({ error: 'No file uploaded' });
