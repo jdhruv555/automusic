@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     form.parse(req, async (err, fields, files) => {
       if (err) {
         console.error('Form parsing error:', err);
-        return res.status(500).json({ error: 'File upload failed' });
+        return res.status(500).json({ error: 'File upload failed', details: err instanceof Error ? err.message : err });
       }
 
       // Handle both single file and array of files
@@ -122,11 +122,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (fs.existsSync(file.filepath)) {
           fs.unlinkSync(file.filepath);
         }
-        res.status(500).json({ error: 'Transcription API call failed' });
+        return res.status(500).json({ error: 'Transcription API call failed', details: apiError instanceof Error ? apiError.message : apiError });
       }
     });
   } catch (error) {
     console.error('Handler error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error', details: error instanceof Error ? error.message : error });
   }
 }
