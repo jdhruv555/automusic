@@ -12,7 +12,7 @@ export default function Home() {
       {/* 🎛️ Visual Signal Chain */}
       <div className="w-full mt-10 px-4" style={{ height: 300 }}>
         <h2 className="text-xl mb-2">Signal Chain</h2>
-        <SignalChain />
+        <SignalChain isActive={false} />
       </div>
     </main>
   );
