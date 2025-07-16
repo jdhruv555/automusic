@@ -8,7 +8,7 @@ interface MicVisualizerProps {
 export default function MicVisualizer({ audioContext, sourceNode }: MicVisualizerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-  const animationIdRef = useRef<number>();
+  const animationIdRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!audioContext || !sourceNode || !canvasRef.current) return;
